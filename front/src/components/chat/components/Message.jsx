@@ -4,9 +4,9 @@ import React from 'react'
 export const Message = ({msg, myself}) => {
     return (
         <div className="chats">
-            <p>{myself ? 'You': msg.user}: </p>
+            <p>{myself ? 'You': msg.name}: </p>
             <div className={myself ? st.messageMy : st.message}>
-                <p>{msg.message}</p>
+                <p>{msg.text}</p>
             </div>
         </div>)
 }

@@ -1,15 +1,19 @@
 import React, {useState} from 'react'
 import st from '../styles.module.scss'
 
-export const GetMessage = ({messages, setMessages}) => {
+export const GetMessage = ({username, socket}) => {
     const [message, setMessage] = useState('')
 
     const handleSend = (e) => {
         e.preventDefault()
-        setMessages([...messages, {
-            user: localStorage.getItem('user'),
-            message
-        }])
+        if (message.trim() && username) {
+            socket.emit('message', {
+                id: `${socket.id}`,
+                name: username,
+                text: message,
+                socketID: socket.id
+            })
+        }
     }
 
     return (

@@ -16,6 +16,12 @@ const io = new Server(httpServer, {
 
 io.on('connection', socket => {
     console.log(`${socket.id} connected`);
+
+    socket.on('message', (data)=> {
+        console.log(data);
+        io.emit('response', data);
+    });
+
     socket.on('disconnect', ()=> {
         console.log(`${socket.id} disconnected`);
     });

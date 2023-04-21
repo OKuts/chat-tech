@@ -1,31 +1,35 @@
-import {useEffect, useState} from 'react'
+import {useContext, useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {Body, GetMessage, Sidebar} from './components'
 import st from './styles.module.scss'
+import {SocketContext} from '../../main.jsx'
 
 export const Chat = () => {
-    // const socket = useContext(SocketContext)
     const navigate = useNavigate()
     const [user, setUser] = useState(null)
-    const [messages, setMessages] = useState([
-        {user: 'Bob', message: 'Hello'},
-        {user: 'Alex', message: 'Hello Bob'},
-        {user: 'Bob', message: 'How are you'},
-    ])
+    const [messages, setMessages] = useState([])
+    const socket = useContext(SocketContext)
 
     useEffect(() => {
         const storageUser = localStorage.getItem('user')
         if (!storageUser) navigate('/')
         setUser(storageUser)
-        console.log(user)
     }, [])
 
+    useEffect(() => {
+        socket.on('response', (data)=> {
+            setMessages((prevState)=> [...prevState, data])
+        })
+    }, [socket])
+
+
+    console.log(messages)
     return (
         <div className={st.chat}>
-            <Sidebar/>
+            <Sidebar user={user}/>
             <main className={st.main}>
                 <Body username = {user} messages = {messages}/>
-                <GetMessage  messages = {messages} setMessages = { setMessages }/>
+                <GetMessage username = {user} socket={socket}/>
             </main>
         </div>
     )

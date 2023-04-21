@@ -15,7 +15,7 @@ export const Body = ({username, messages}) => {
                 <button className={st.sendButton} onClick={handleExit}>Exit</button>
             </header>
             {messages.map((message, i) =>
-                <Message key={i} msg = {message} myself = {message.user === username}/>)}
+                <Message key={i} msg = {message} myself = {message.name === username}/>)}
         </div>
     )
 }
