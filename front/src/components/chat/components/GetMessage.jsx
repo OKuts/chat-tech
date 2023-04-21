@@ -1,15 +1,15 @@
 import React, {useState} from 'react'
 import st from '../styles.module.scss'
 
-export const GetMessage = () => {
+export const GetMessage = ({messages, setMessages}) => {
     const [message, setMessage] = useState('')
 
     const handleSend = (e) => {
         e.preventDefault()
-        console.log({
+        setMessages([...messages, {
             user: localStorage.getItem('user'),
             message
-        })
+        }])
     }
 
     return (

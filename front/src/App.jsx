@@ -4,14 +4,14 @@ import {Chat} from './components/chat/index.jsx'
 
 
 function App() {
-  return (
-    <div className="App">
-      <Routes>
-        <Route path={'/'} element={<Home/>}/>
-        <Route path={'/chat'} element={<Chat/>}/>
-      </Routes>
-    </div>
-  )
+    return (
+        <div className="App">
+            <Routes>
+                <Route path={'/'} element={<Home/>}/>
+                <Route path={'/chat'} element={<Chat/>}/>
+            </Routes>
+        </div>
+    )
 }
 
 export default App
