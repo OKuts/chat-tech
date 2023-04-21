@@ -1,33 +1,28 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import st from '../styles.module.scss'
+import {useNavigate} from 'react-router-dom'
+import {Message} from './Message.jsx'
 
-export const Body = () => {
-  return (
-    <div className={st.bodyWrapper}>
-      <header className={st.header}>
-        <button className={st.sendButton}>Exit</button>
-      </header>
-      <div className="chats">
-        <p>You: </p>
-        <div className={st.message}>
-          <p>Hello</p>
-        </div>
-      </div>
-      <div className={st.container}>
-        <div className="chats">
-          <p>You: </p>
-          <div className={st.messageMy}>
-            <p>Hello</p>
-          </div>
-        </div>
-        <div className="chats">
-          <p>You: </p>
-          <div className={st.message}>
-            <p>Hello</p>
-          </div>
-        </div>
-      </div>
+const messages = [
+    {user: 'Bob', message: 'Hello'},
+    {user: 'Alex', message: 'Hello Bob'},
+    {user: 'Bob', message: 'How are you'},
+]
+export const Body = ({username}) => {
+    const navigate = useNavigate()
+    const handleExit = () => {
+        localStorage.removeItem('user')
+        navigate('/')
+    }
+    console.log(username)
 
-    </div>
-  )
+    return (
+        <div className={st.bodyWrapper}>
+            <header className={st.header}>
+                <button className={st.sendButton} onClick={handleExit}>Exit</button>
+            </header>
+            {messages.map((message, i) =>
+                <Message key={i} msg = {message} myself = {message.user === username}/>)}
+        </div>
+    )
 }
