@@ -1,14 +1,16 @@
 import {useNavigate} from 'react-router-dom'
-import {useEffect, useState} from 'react'
+import {useContext, useEffect, useState} from 'react'
 import st from './styles.module.scss'
+import {SocketContext} from '../../main.jsx'
 
 export const Home = () => {
     const navigate = useNavigate()
     const [user, setUser] = useState('')
-
+    const socket = useContext(SocketContext)
     const submitHandler = (e) => {
         e.preventDefault()
         localStorage.setItem('user', user)
+        socket.emit('newUser', {user, socketID: socket.id})
         navigate('/chat')
     }
 

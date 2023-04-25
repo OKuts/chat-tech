@@ -6,7 +6,7 @@ export const Message = ({msg, myself}) => {
         <div className="chats">
             <p>{myself ? 'You': msg.name}: </p>
             <div className={myself ? st.messageMy : st.message}>
-                <p>{msg.text}</p>
+                <span>{msg.text}</span>
             </div>
         </div>)
 }

@@ -17,19 +17,18 @@ export const Chat = () => {
     }, [])
 
     useEffect(() => {
-        socket.on('response', (data)=> {
-            setMessages((prevState)=> [...prevState, data])
+        socket.on('response', (data) => {
+            setMessages(() => [...messages, data])
         })
-    }, [socket])
+    }, [socket, messages])
 
 
-    console.log(messages)
     return (
         <div className={st.chat}>
-            <Sidebar user={user}/>
+            <Sidebar user={user} socket={socket}/>
             <main className={st.main}>
-                <Body username = {user} messages = {messages}/>
-                <GetMessage username = {user} socket={socket}/>
+                <Body username={user} messages={messages} socket={socket}/>
+                <GetMessage username={user} socket={socket}/>
             </main>
         </div>
     )

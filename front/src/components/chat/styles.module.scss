@@ -51,17 +51,35 @@
   border-radius: 8px;
 }
 
-.messageMy > p {
+.messageMy {
   text-align: right;
+
+  & span {
+    padding: 5px 10px;
+    background-color: aqua;
+    border-radius: 5px;
+  }
 }
 
-.message > p {
-  padding-left: 50px;
+.message > span {
+  margin-left: 50px;
   color: white;
+  padding: 5px 10px;
+  background-color: #cccccc;
+  border-radius: 5px;
 }
 
 .users {
   list-style-type: none;
+}
+
+.write {
+  min-height: 1rem;
+  padding: 5px;
+  color: chartreuse;
+  & span {
+    color: black;
+  }
 }
 
 @media screen and (max-width: 600px) {

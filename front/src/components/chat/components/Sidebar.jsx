@@ -1,14 +1,25 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import st from '../styles.module.scss'
-export const Sidebar = ({user}) => {
+
+export const Sidebar = ({user, socket}) => {
+    const [users, setUsers] = useState([])
+
+    useEffect(() => {
+        socket.on('moveUser', data => {
+            setUsers(data)
+        })
+    }, [socket])
+
+    const filteredList = users.filter(el=>
+        el.socketID !== socket.id && el.user !== user
+    )
+
     return (
         <div className={st.sidebar}>
             <h1>{user}</h1>
-            <h4 className={'header'}>Users</h4>
+            <h3>Users</h3>
             <ul className={st.users}>
-                <li>1</li>
-                <li>1</li>
-                <li>1</li>
+                {filteredList.map(el => <li key={el.socketID}>{el.user}</li>)}
             </ul>
         </div>
     )

@@ -8,7 +8,7 @@ export const GetMessage = ({username, socket}) => {
         e.preventDefault()
         if (message.trim() && username) {
             socket.emit('message', {
-                id: `${socket.id}`,
+                id: `${socket.id}-${Math.random()}-${Date.now()}`,
                 name: username,
                 text: message,
                 socketID: socket.id
@@ -16,12 +16,17 @@ export const GetMessage = ({username, socket}) => {
         }
     }
 
+    const handleChange = (text) => {
+        setMessage(text)
+        socket.emit('typing', {name: username, socketID: socket.id})
+    }
+
     return (
         <form className={st.messageBlock} onSubmit={handleSend}>
             <textarea
                 className={st.sendInput}
                 value={message}
-                onChange={(e)=> setMessage(e.target.value)}
+                onChange={(e)=> handleChange(e.target.value)}
             />
             <button
                 className={st.sendButton}
